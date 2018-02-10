@@ -1,11 +1,3 @@
-%%%-------------------------------------------------------------------
-%%% @author Juan Puig Martinez <juan.puig@gmail.com>
-%%% @copyright (C) 2018, Juan Puig Martinez
-%%% @doc
-%%%
-%%% @end
-%%% Created :  9 Feb 2018 by Juan Puig Martinez <juan.puig@gmail.com>
-%%%-------------------------------------------------------------------
 -module(wordfrequency).
 
 
@@ -107,10 +99,3 @@ is_frequent_enough({_Word, Frequency} = Object, Array, Position) ->
                     is_frequent_enough(Object, Array, Position + 1)
             end
     end.
-
-
--ifdef(TEST).
-
--include_lib("eunit/include/eunit.hrl").
-
--endif().
