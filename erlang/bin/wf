@@ -1,0 +1,34 @@
+#!/usr/bin/env escript
+%%! -sname wf -pa ebin/
+
+
+%% Write a program that takes as parameters,
+%%
+%% - A text file name, Filename
+%% - A positive number, N
+%% 
+%% and produces as output, the list of N most
+%% repeated words in the text file.
+
+main([F, N]) ->
+    
+    %% Parameters
+    Filename = F,
+    Num      = list_to_integer(N),
+
+    %% File operations
+    {ok, File} = wordfrequency:open_file(Filename),
+    {ok, Content} = wordfrequency:read_content(File),
+
+    %% Data structures
+    TId   = ets:new(wf, []),
+    Array = array:new(Num, {default, {undefined, 0}}),
+
+    %% Process content
+    ok = wordfrequency:store_words(Content, TId),
+    
+    %% Find most frequent
+    {ok, NewArray} = wordfrequency:top_most_frequent(TId, Array),
+
+    %% Print results
+    [ ok = io:format("Word ~s appears ~p times~n", [Word, Frequency]) || {Word, Frequency} <- array:to_list(NewArray) ].
